@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@theme {
+  /* Brand: deep ink blue (buttons, links, headings) */
+  --color-brand-50: #eef2fb;
+  --color-brand-100: #dce5f7;
+  --color-brand-500: #3d63c9;
+  --color-brand-600: #2f4fa8;
+  --color-brand-700: #26418a;
+  --color-brand-900: #16254f;
+
+  /* Noor: warm gold (highlights, ratings, "reading" status) */
+  --color-noor-100: #fff1d2;
+  --color-noor-400: #f2b84b;
+  --color-noor-500: #e8a93b;
+  --color-noor-800: #7a4e08;
+
+  /* Status and feedback */
+  --color-finished: #2a6f4f;
+  --color-finished-bg: #ddf2e8;
+  --color-danger: #b3261e;
+  --color-like: #d6456b;
+
+  /* Neutrals (roles, so dark mode can swap them) */
+  --color-surface: #f8f5ee;
+  --color-card: #ffffff;
+  --color-ink: #1f2430;
+  --color-muted: #5c6272;
+  --color-line: #d9d4c5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #14161c;
+    --color-card: #1c1f27;
+    --color-ink: #ecedf1;
+    --color-muted: #a3a8b5;
+    --color-line: #2c303b;
+  }
+}

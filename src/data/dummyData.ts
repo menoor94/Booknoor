@@ -1,0 +1,82 @@
+import type { Book } from "../types";
+
+export const dummyBooks: Book[] = [
+  {
+    id: "b1",
+    title: "Dune",
+    author: "Frank Herbert",
+    status: "reading",
+    liked: false,
+    bookmarks: [
+      { id: "b1-1", page: 57, note: "Stopped here" },
+      { id: "b1-2", page: 143, note: "Reread this scene" },
+    ],
+  },
+  {
+    id: "b2",
+    title: "Persepolis",
+    author: "Marjane Satrapi",
+    status: "finished",
+    liked: true,
+    rating: 5,
+    note: "Worth rereading before the sequel.",
+    bookmarks: [
+      { id: "b2-1", page: 34, note: "Favorite panel" },
+      { id: "b2-2", page: 112, note: "Chapter about school" },
+    ],
+  },
+  {
+    id: "b3",
+    title: "Norwegian Wood",
+    author: "Haruki Murakami",
+    status: "want",
+    liked: false,
+    bookmarks: [],
+  },
+  {
+    id: "b4",
+    title: "The Left Hand of Darkness",
+    author: "Ursula K. Le Guin",
+    status: "finished",
+    liked: false,
+    rating: 4,
+    bookmarks: [{ id: "b4-1", page: 88 }],
+  },
+  {
+    id: "b5",
+    title: "Kafka on the Shore",
+    author: "Haruki Murakami",
+    status: "want",
+    liked: true,
+    bookmarks: [],
+  },
+  {
+    id: "b6",
+    title: "Things Fall Apart",
+    author: "Chinua Achebe",
+    status: "reading",
+    liked: false,
+    bookmarks: [
+      { id: "b6-1", page: 20 },
+      { id: "b6-2", page: 65, note: "Great chapter" },
+      { id: "b6-3", page: 101 },
+    ],
+  },
+  {
+    id: "b7",
+    title: "Frankenstein",
+    author: "Mary Shelley",
+    status: "finished",
+    liked: false,
+    rating: 3,
+    bookmarks: [],
+  },
+  {
+    id: "b8",
+    title: "The Name of the Rose",
+    author: "Umberto Eco",
+    status: "want",
+    liked: false,
+    bookmarks: [],
+  },
+];
