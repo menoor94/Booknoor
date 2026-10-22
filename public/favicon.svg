@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%" fill="none">
+  <!-- Radiant Light Rays -->
+  <g stroke-linecap="round" stroke-width="6.5">
+    <line x1="68" y1="86" x2="83" y2="86" stroke="#D98A63" />
+    <line x1="76" y1="56" x2="90" y2="65" stroke="#2A2859" />
+    <line x1="99" y1="34" x2="107" y2="48" stroke="#68B0A0" />
+    <line x1="128" y1="24" x2="128" y2="41" stroke="#D98A63" />
+    <line x1="157" y1="34" x2="149" y2="48" stroke="#68B0A0" />
+    <line x1="180" y1="56" x2="166" y2="65" stroke="#2A2859" />
+    <line x1="188" y1="86" x2="173" y2="86" stroke="#D98A63" />
+  </g>
+
+  <!-- 4-Point Noor Star Emblem -->
+  <path d="M128 50 Q135 79 164 86 Q135 93 128 126 Q121 93 92 86 Q121 79 128 50 Z" fill="#D98A63" />
+
+  <!-- Bottom Teal Book Pages (True transparent cutout for bookmark) -->
+  <path d="M46 151 L53 137 C84 134 110 142 125 156 L131 156 C136 151 141 147 147 144 L147 151 C138 153 134 156 128 156 L46 151 Z" fill="#68B0A0" />
+  <path d="M46 151 L53 137 C84 134 108 142 124 156 L46 156 Z" fill="#68B0A0" />
+  <path d="M181 136 C190 136 197 136 203 137 L210 156 L181 156 Z" fill="#68B0A0" />
+
+  <!-- Middle Teal Page Curves -->
+  <path d="M56 124 C86 120 112 130 126 155" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+  <path d="M130 155 C135 146 140 139 147 134" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+  <path d="M181 122 C188 122 194 123 200 124" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+
+  <!-- Top Indigo Page Curves -->
+  <path d="M66 105 C98 105 118 121 128 155 C133 138 140 125 150 116" stroke="#2A2859" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M174 107 C179 106 184 105 190 105" stroke="#2A2859" stroke-width="8" stroke-linecap="round" />
+
+  <!-- Book Cover Base Line -->
+  <path d="M40 164 L108 164 C114 176 142 176 147 164" stroke="#2A2859" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M182 164 L216 164" stroke="#2A2859" stroke-width="8.5" stroke-linecap="round" />
+
+  <!-- Terracotta Bookmark Ribbon -->
+  <path d="M148 117 C156 111 165 108 176 106 L176 232 L162 220 L148 232 Z" fill="#CC6649" />
+</svg>

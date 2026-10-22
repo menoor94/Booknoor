@@ -2,9 +2,6 @@
 
 * {
   outline: none;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 @theme {
@@ -17,6 +14,7 @@
   --color-brand-900: #16254f;
 
   /* Noor: warm gold (highlights, ratings, "reading" status) */
+  --color-noor-50: #f8f2e5;
   --color-noor-100: #fff1d2;
   --color-noor-400: #f2b84b;
   --color-noor-500: #e8a93b;

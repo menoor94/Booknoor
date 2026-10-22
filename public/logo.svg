@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 290" width="100%" height="100%" fill="none">
+  <!-- Radiant Light Rays -->
+  <g stroke-linecap="round" stroke-width="6.5">
+    <line x1="120" y1="86" x2="135" y2="86" stroke="#D98A63" />
+    <line x1="128" y1="56" x2="142" y2="65" stroke="#2A2859" />
+    <line x1="151" y1="34" x2="159" y2="48" stroke="#68B0A0" />
+    <line x1="180" y1="24" x2="180" y2="41" stroke="#D98A63" />
+    <line x1="209" y1="34" x2="201" y2="48" stroke="#68B0A0" />
+    <line x1="232" y1="56" x2="218" y2="65" stroke="#2A2859" />
+    <line x1="240" y1="86" x2="225" y2="86" stroke="#D98A63" />
+  </g>
+
+  <!-- 4-Point Noor Star Emblem -->
+  <path d="M180 50 Q187 79 216 86 Q187 93 180 126 Q173 93 144 86 Q173 79 180 50 Z" fill="#D98A63" />
+
+  <!-- Bottom Teal Book Pages -->
+  <path d="M86 154 L94 138 C128 135 158 142 176 154 Z" fill="#68B0A0" />
+  <path d="M233 136 C246 136 256 137 266 138 L274 154 L233 154 Z" fill="#68B0A0" />
+
+  <!-- Middle Teal Page Curves -->
+  <path d="M98 124 C132 120 162 130 178 154" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+  <path d="M182 154 C187 145 192 138 199 133" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+  <path d="M233 122 C243 122 253 123 262 124" stroke="#68B0A0" stroke-width="7.5" stroke-linecap="round" />
+
+  <!-- Top Indigo Page Curves -->
+  <path d="M108 105 C144 105 168 121 180 154 C185 138 192 125 202 116" stroke="#2A2859" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M226 107 C235 106 244 105 252 105" stroke="#2A2859" stroke-width="8" stroke-linecap="round" />
+
+  <!-- Wrapping Book Cover Line (Connects into "Booknoor") -->
+  <path d="M78 198 C52 198 52 164 78 164 L160 164 C166 176 194 176 200 164" stroke="#2A2859" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M234 164 L282 164 C308 164 308 198 282 198" stroke="#2A2859" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Terracotta Bookmark Ribbon -->
+  <path d="M200 117 C208 111 217 108 228 106 L228 252 L214 240 L200 252 Z" fill="#CC6649" />
+
+  <!-- "Booknoor" Typography -->
+  <text x="180" y="214" text-anchor="middle" fill="#2A2859" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif" font-size="46" font-weight="800" letter-spacing="-0.5">
+    Booknoor
+  </text>
+</svg>
