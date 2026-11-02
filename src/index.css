@@ -2,6 +2,20 @@
 
 * {
   outline: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @theme {
@@ -42,4 +56,7 @@
     --color-muted: #a3a8b5;
     --color-line: #2c303b;
   }
+}
+body {
+  overflow: hidden;
 }

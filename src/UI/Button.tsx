@@ -1,12 +1,13 @@
 import type { ComponentPropsWithoutRef } from "react";
 
 type ButtonProps = {
-  type: "primary" | "secondary" | "delete";
+  type?: "primary" | "secondary" | "delete";
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
-  other?: ComponentPropsWithoutRef<"button">;
-};
-const base = " text-white cursor-pointer rounded-full uppercase ";
+} & Omit<ComponentPropsWithoutRef<"button">, "type" | "onClick">;
+const base =
+  " text-white cursor-pointer rounded-full uppercase hover:opacity-90";
 
 const types = {
   primary: " bg-brand-700 ",
@@ -14,9 +15,19 @@ const types = {
   delete: " bg-danger ",
 };
 
-function Button({ type, children, className = "", ...other }: ButtonProps) {
+function Button({
+  type,
+  children,
+  className = "",
+  onClick,
+  ...other
+}: ButtonProps) {
   return (
-    <button className={`${types[type]} ${base} ${className}`} {...other}>
+    <button
+      onClick={onClick}
+      className={`${type && types[type]} ${base} ${className}`}
+      {...other}
+    >
       {children}
     </button>
   );

@@ -9,9 +9,9 @@ const covers = [
   { bg: "#F2B84B", fg: "#1F2430" },
 ];
 
-export function randomColorCover(text: string) {
+export function randomColorCover(id: string) {
   let total = 0;
-  for (const char of text) total += char.charCodeAt(0);
+  for (const char of id) total += char.charCodeAt(0);
 
   return covers[total % covers.length];
 }

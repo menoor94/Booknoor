@@ -15,5 +15,6 @@ export type Book = {
   rating?: number; // 1-5, only for finished books
   note?: string;
   bookmarks: Bookmark[];
+  cover?: string;
   coverId?: number; // Open Library cover id, optional
 };

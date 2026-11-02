@@ -1,34 +1,58 @@
-//Icons
+import { Link } from "react-router";
 import { MdFavorite } from "react-icons/md";
-import { IoLibrary, IoSearch } from "react-icons/io5";
-//components
+import { IoLibrary, IoSearch, IoAdd, IoPersonOutline } from "react-icons/io5";
+
 import Logo from "./Logo";
-import Button from "./Button";
 import Navlink from "./Navlink";
 
 function Header() {
   return (
-    <header className="flex justify-between items-center  px-5 md:px-10 shadow-xl">
-      <Logo className="w-20  md:w-30" />
-      <div className="flex justify-center items-center gap-5 md:gap-10 ">
+    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 md:px-10 h-16 md:h-18 flex justify-between items-center transition-all shadow-2xs">
+      {/* Brand Logo */}
+      <Link
+        to="/"
+        className="flex items-center gap-2 transition-transform hover:scale-105"
+        aria-label="Booknoor Home"
+      >
+        <Logo className="w-20 sm:w-24  h-auto" />
+      </Link>
+
+      {/* Navigation */}
+      <nav className="flex items-center gap-1 sm:gap-4 md:gap-8">
         <Navlink path="/" icon={<IoLibrary />}>
           Library
         </Navlink>
 
-        <Navlink path="Favorites" icon={<MdFavorite />}>
+        <Navlink path="/favorites" icon={<MdFavorite />}>
           Favorites
         </Navlink>
 
-        <Navlink path="Search" icon={<IoSearch />}>
+        <Navlink path="/search" icon={<IoSearch />}>
           Search
         </Navlink>
+      </nav>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          onClick={() => {}}
+          className="inline-flex items-center gap-1 sm:gap-1.5 bg-brand-700 hover:bg-brand-800 text-white font-medium text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-full shadow-xs hover:shadow transition-all duration-150 active:scale-95 cursor-pointer"
+        >
+          <IoAdd className="text-base sm:text-lg" />
+          <span className="hidden sm:inline">Add books</span>
+          <span className="sm:hidden">Add</span>
+        </button>
+
+        <Link
+          to="/login"
+          className="p-2 text-stone-600 hover:text-brand-700 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
+          aria-label="Account Login"
+          title="Account / Log in"
+        >
+          <IoPersonOutline className="text-lg sm:text-xl" />
+        </Link>
       </div>
-      <Button
-        type="primary"
-        className=" py-1 px-2 md:px-4 text-sm md:text-base"
-      >
-        +Add books
-      </Button>
     </header>
   );
 }
