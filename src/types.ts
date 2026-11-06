@@ -17,4 +17,5 @@ export type Book = {
   bookmarks: Bookmark[];
   cover?: string;
   coverId?: number; // Open Library cover id, optional
+  firstPublishYear?: number;
 };

@@ -18,6 +18,74 @@
   }
 }
 
+/* Smooth Falling Entrance Animations (Y-Axis) */
+@keyframes translateYEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes translateYContent {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card / Book animation */
+.animate-book-card {
+  animation: translateYEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Login hero animations (strictly Y-axis) */
+.animate-login-hero {
+  animation: translateYEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Login form section animation (strictly Y-axis) */
+.animate-login-form {
+  animation: translateYEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.animate-hero-stagger-1 {
+  animation: translateYContent 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.animate-hero-stagger-2 {
+  animation: translateYContent 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+.animate-hero-stagger-3 {
+  animation: translateYContent 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
+}
+
+.animate-hero-stagger-4 {
+  animation: translateYContent 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-book-card,
+  .animate-login-hero,
+  .animate-login-form,
+  .animate-hero-stagger-1,
+  .animate-hero-stagger-2,
+  .animate-hero-stagger-3,
+  .animate-hero-stagger-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @theme {
   /* Brand: deep ink blue (buttons, links, headings) */
   --color-brand-50: #eef2fb;

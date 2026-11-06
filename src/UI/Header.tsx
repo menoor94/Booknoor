@@ -4,6 +4,7 @@ import { IoLibrary, IoSearch, IoAdd, IoPersonOutline } from "react-icons/io5";
 
 import Logo from "./Logo";
 import Navlink from "./Navlink";
+import Button from "./Button";
 
 function Header() {
   return (
@@ -34,15 +35,17 @@ function Header() {
 
       {/* Actions */}
       <div className="flex items-center gap-2 sm:gap-3">
-        <button
-          type="button"
-          onClick={() => {}}
-          className="inline-flex items-center gap-1 sm:gap-1.5 bg-brand-700 hover:bg-brand-800 text-white font-medium text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-full shadow-xs hover:shadow transition-all duration-150 active:scale-95 cursor-pointer"
-        >
-          <IoAdd className="text-base sm:text-lg" />
-          <span className="hidden sm:inline">Add books</span>
-          <span className="sm:hidden">Add</span>
-        </button>
+        <Link to="/search">
+          <Button
+            variant="primary"
+            size="sm"
+            className="sm:text-sm sm:py-2 sm:px-4"
+          >
+            <IoAdd className="text-base sm:text-lg" />
+            <span className="hidden sm:inline">Add books</span>
+            <span className="sm:hidden">Add</span>
+          </Button>
+        </Link>
 
         <Link
           to="/login"

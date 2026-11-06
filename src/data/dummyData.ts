@@ -80,3 +80,17 @@ export const dummyBooks: Book[] = [
     bookmarks: [],
   },
 ];
+
+export function isBookInLibrary(book: { id?: string; title: string }): boolean {
+  return dummyBooks.some(
+    (b) =>
+      (book.id && b.id === book.id) ||
+      b.title.toLowerCase().trim() === book.title.toLowerCase().trim(),
+  );
+}
+
+export function addBookToLibrary(book: Book): boolean {
+  if (isBookInLibrary(book)) return false;
+  dummyBooks.unshift(book);
+  return true;
+}

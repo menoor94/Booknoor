@@ -5,6 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import type { Status } from "../types";
 import { dummyBooks as books } from "../data/dummyData";
 import BooksRender from "../books/BooksRender";
+import Button from "../UI/Button";
 
 const tabs: { label: string; value: Status | null }[] = [
   { label: "All", value: null },
@@ -33,7 +34,6 @@ function BookList() {
 
   return (
     <div className="relative min-h-full ">
-      {/* Ambient Warm "Noor" Glow Backgrounds */}
       <div
         className="pointer-events-none absolute -top-8 -left-16 h-80 w-80 rounded-full bg-noor-200/50 blur-3xl opacity-70"
         aria-hidden="true"
@@ -103,21 +103,20 @@ function BookList() {
             {tabs.map((tab) => {
               const active = tab.value === status;
               return (
-                <button
+                <Button
                   key={tab.label}
-                  type="button"
+                  variant={active ? "primary" : "outline"}
+                  size="sm"
                   aria-pressed={active}
-                  className={`px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full cursor-pointer transition-all duration-150 ${
-                    active
-                      ? "bg-brand-700 text-white shadow-xs"
-                      : "bg-white/80 border border-stone-300/80 text-stone-600 hover:bg-white hover:text-stone-900 hover:border-stone-400"
+                  className={`sm:text-sm sm:px-5 ${
+                    !active ? "bg-white/80 border-stone-300/80 text-stone-600" : ""
                   }`}
                   onClick={() =>
                     setSearchParams(tab.value ? { status: tab.value } : {})
                   }
                 >
                   {tab.label}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -126,8 +125,8 @@ function BookList() {
         {/* Books Grid */}
         {visible.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 justify-center items-start">
-            {visible.map((b) => (
-              <BooksRender key={b.id} book={b} />
+            {visible.map((b, idx) => (
+              <BooksRender key={b.id} book={b} index={idx} />
             ))}
           </div>
         ) : (

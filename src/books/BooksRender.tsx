@@ -2,16 +2,18 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { CiBookmark } from "react-icons/ci";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
-import { IoStar } from "react-icons/io5";
 
 import type { Book } from "../types";
 import { randomColorCover } from "../utils/coverColor";
+import Rating from "../UI/Rating";
+import Button from "../UI/Button";
 
 type BooksRenderProps = {
   book: Book;
+  index?: number;
 };
 
-function BooksRender({ book }: BooksRenderProps) {
+function BooksRender({ book, index = 0 }: BooksRenderProps) {
   const { id, cover, title, author, status, rating, bookmarks } = book;
   const { bg, fg } = randomColorCover(id);
   const [isLiked, setIsLiked] = useState(book.liked ?? false);
@@ -29,7 +31,12 @@ function BooksRender({ book }: BooksRenderProps) {
   };
 
   return (
-    <div className="group relative w-full max-w-[320px] sm:max-w-[220px] mx-auto flex flex-col bg-white rounded-xl border border-stone-200/80 p-3.5 sm:p-3 shadow-xs hover:shadow-md hover:border-stone-300 transition-all duration-200">
+    <div
+      style={{
+        animationDelay: `${Math.min(index * 45, 360)}ms`,
+      }}
+      className="animate-book-card group relative w-full max-w-[320px] sm:max-w-[220px] mx-auto flex flex-col bg-white rounded-xl border border-stone-200/80 p-3.5 sm:p-3 shadow-xs hover:shadow-md hover:border-stone-300 transition-all duration-200"
+    >
       {/* Book Cover */}
       <Link
         to={`/book/${id}`}
@@ -68,18 +75,20 @@ function BooksRender({ book }: BooksRenderProps) {
         )}
 
         {/* Like Button */}
-        <button
-          type="button"
+        <Button
+          variant="outline"
+          size="icon"
+          rounded="full"
+          className="absolute top-2.5 right-2.5 sm:top-2 sm:right-2 bg-white/85 hover:bg-white hover:scale-110 shadow-xs backdrop-blur-xs p-2 sm:p-1.5"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
             setIsLiked(!isLiked);
           }}
-          className="absolute top-2.5 right-2.5 sm:top-2 sm:right-2 p-2 sm:p-1.5 rounded-full bg-white/85 hover:bg-white text-lg sm:text-base shadow-xs backdrop-blur-xs transition hover:scale-110 cursor-pointer"
           aria-label={isLiked ? "Unlike book" : "Like book"}
         >
           {isLiked ? <FcLike /> : <FcLikePlaceholder />}
-        </button>
+        </Button>
       </Link>
 
       {/* Book Metadata */}
@@ -106,12 +115,9 @@ function BooksRender({ book }: BooksRenderProps) {
           </span>
 
           {rating ? (
-            <span className="flex items-center gap-1 sm:gap-0.5 text-xs font-semibold text-stone-700">
-              <IoStar className="w-3.5 h-3.5 text-noor-400 fill-noor-400" />
-              <span>{rating}.0</span>
-            </span>
+            <Rating rating={rating} size="sm" readonly />
           ) : (
-            <span className="text-xs sm:text-[11px] text-stone-400">Unrated</span>
+            <span className="text-[11px] text-stone-400">Not rated yet</span>
           )}
         </div>
 

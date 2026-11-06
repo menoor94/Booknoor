@@ -18,30 +18,30 @@ function Login() {
   return (
     <div className="fixed inset-0 w-full overflow-y-auto md:overflow-hidden flex flex-col md:flex-row bg-noor-50">
       {/* Left Side: Hero Banner */}
-      <section className="w-full md:w-1/2 md:h-full bg-gradient-to-b from-brand-500/90 via-brand-500  to-brand-50/50 border-b md:border-b-0 md:border-r border-stone-200/80 flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-16 relative shrink-0">
+      <section className="w-full md:w-1/2 md:h-full bg-gradient-to-b from-brand-500/90 via-brand-500 to-brand-50/50 border-b md:border-b-0 md:border-r border-stone-200/80 flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-16 relative shrink-0 animate-login-hero">
         {/* Brand Logo */}
-        <div>
+        <div className="animate-hero-stagger-1">
           <Logo className="w-24 sm:w-28 md:w-32" />
         </div>
 
         {/* Center Content */}
         <div className="my-auto py-6 sm:py-8 md:py-12 max-w-lg">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-medium mb-3 sm:mb-5">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-medium mb-3 sm:mb-5 animate-hero-stagger-2">
             <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
             <span>Welcome to Booknoor</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-tight">
-            Read in a <span className="text-brand-700">better light.</span>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-tight animate-hero-stagger-2">
+            Track your <span className="text-noor-100">reading journey. </span>
           </h1>
 
-          <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-stone-600 leading-relaxed font-normal max-w-md">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-stone-600 leading-relaxed font-normal max-w-md animate-hero-stagger-3">
             Your quiet sanctuary for every story. Track your reading progress,
             curate your private shelf, and rediscover the joy of books.
           </p>
 
           {/* Feature Highlights - visible on tablet and up */}
-          <div className="hidden sm:grid sm:grid-cols-2 gap-4 sm:gap-6 mt-6 pt-6 border-t mb-10 border-stone-200/80">
+          <div className="hidden sm:grid sm:grid-cols-2 gap-4 sm:gap-6 mt-6 pt-6 border-t mb-10 border-stone-200/80 animate-hero-stagger-4">
             <div>
               <div className="text-lg sm:text-xl md:text-2xl font-bold text-stone-900">
                 Calm &amp; Focused
@@ -63,10 +63,10 @@ function Login() {
       </section>
 
       {/* Right Side: Login Form */}
-      <section className="w-full md:w-1/2 md:h-full flex flex-col justify-center items-center px-4 py-8 sm:px-8 sm:py-12 lg:px-16 md:overflow-y-auto">
+      <section className="w-full md:w-1/2 md:h-full flex flex-col justify-center items-center px-4 py-8 sm:px-8 sm:py-12 lg:px-16 md:overflow-y-auto animate-login-form">
         <div className="w-full max-w-sm sm:max-w-md">
           {/* Header */}
-          <div className="mb-6 sm:mb-8">
+          <div className="mb-6 sm:mb-8 animate-hero-stagger-1">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
               Welcome back
             </h2>
@@ -76,7 +76,10 @@ function Login() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 sm:space-y-5 animate-hero-stagger-2"
+          >
             {/* Email Field */}
             <div className="flex flex-col">
               <label
@@ -168,7 +171,7 @@ function Login() {
           </form>
 
           {/* Footer */}
-          <p className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-stone-600">
+          <p className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-stone-600 animate-hero-stagger-3">
             <span>New to Booknoor?</span>{" "}
             <a
               href="#signup"
