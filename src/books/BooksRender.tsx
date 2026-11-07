@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router";
 import { CiBookmark } from "react-icons/ci";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 
 import type { Book } from "../types";
 import { randomColorCover } from "../utils/coverColor";
+import { useAppDispatch } from "../store";
+import { toggleLikeBook } from "./booksSlice";
 import Rating from "../UI/Rating";
 import Button from "../UI/Button";
 
@@ -16,7 +17,8 @@ type BooksRenderProps = {
 function BooksRender({ book, index = 0 }: BooksRenderProps) {
   const { id, cover, title, author, status, rating, bookmarks } = book;
   const { bg, fg } = randomColorCover(id);
-  const [isLiked, setIsLiked] = useState(book.liked ?? false);
+  const dispatch = useAppDispatch();
+  const isLiked = book.liked ?? false;
 
   const statusStyles = {
     want: "text-brand-700 bg-brand-50 border-brand-100",
@@ -83,7 +85,7 @@ function BooksRender({ book, index = 0 }: BooksRenderProps) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsLiked(!isLiked);
+            dispatch(toggleLikeBook(id));
           }}
           aria-label={isLiked ? "Unlike book" : "Like book"}
         >

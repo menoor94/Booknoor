@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { IoSearch } from "react-icons/io5";
 
 import type { Status } from "../types";
-import { dummyBooks as books } from "../data/dummyData";
+import { useAppSelector } from "../store";
 import BooksRender from "../books/BooksRender";
 import Button from "../UI/Button";
 
@@ -18,6 +18,8 @@ function BookList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get("status");
   const [inpValue, setInpValue] = useState("");
+
+  const books = useAppSelector((state) => state.books.books);
 
   const totalBooks = books.length;
   const finishedCount = books.filter((b) => b.status === "finished").length;

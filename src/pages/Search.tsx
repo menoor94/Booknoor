@@ -1,12 +1,14 @@
 import { useState } from "react";
 
 import type { Status, Book } from "../types";
-import { addBookToLibrary } from "../data/dummyData";
+import { useAppDispatch } from "../store";
+import { addBook } from "../books/booksSlice";
 import { useSearchBooks } from "../books/search/searchHooks";
 import SearchHeader from "../books/search/SearchHeader";
 import SearchResults from "../books/search/SearchResults";
 
 function Search() {
+  const dispatch = useAppDispatch();
   const [statuses, setStatuses] = useState<Record<string, Status>>({});
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
 
@@ -32,13 +34,14 @@ function Search() {
   const handleAddBook = (book: Book, status: Status) => {
     const bookToAdd: Book = {
       ...book,
+      id: book.id || `book-${Date.now()}`,
       status,
       liked: false,
       bookmarks: [],
     };
 
-    addBookToLibrary(bookToAdd);
-    setAddedIds((prev) => new Set(prev).add(book.id));
+    dispatch(addBook(bookToAdd));
+    setAddedIds((prev) => new Set(prev).add(bookToAdd.id));
   };
 
   return (

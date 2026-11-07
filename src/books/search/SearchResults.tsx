@@ -1,7 +1,7 @@
 import { IoBookOutline, IoRefresh } from "react-icons/io5";
 
 import type { Book, Status } from "../../types";
-import { isBookInLibrary } from "../../data/dummyData";
+import { useAppSelector } from "../../store";
 import Button from "../../UI/Button";
 import SearchResultItem from "./SearchResultItem";
 
@@ -30,6 +30,8 @@ function SearchResults({
   onStatusChange,
   onAddBook,
 }: SearchResultsProps) {
+  const libraryBooks = useAppSelector((state) => state.books.books);
+
   return (
     <section className="mt-6" aria-live="polite">
       {/* Results Summary Header */}
@@ -118,7 +120,14 @@ function SearchResults({
       {query && !isLoading && !isError && books.length > 0 && (
         <div className="space-y-3">
           {books.map((book, idx) => {
-            const inLibrary = addedIds.has(book.id) || isBookInLibrary(book);
+            const inLibrary =
+              addedIds.has(book.id) ||
+              libraryBooks.some(
+                (lib) =>
+                  (book.id && lib.id === book.id) ||
+                  lib.title.toLowerCase().trim() ===
+                    book.title.toLowerCase().trim(),
+              );
             const currentStatus = statuses[book.id] || "want";
 
             return (

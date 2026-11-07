@@ -1,9 +1,17 @@
-import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import { IoArrowBack } from "react-icons/io5";
 
 import type { Status, Bookmark } from "../types";
-import { dummyBooks } from "../data/dummyData";
+import { useAppDispatch, useAppSelector } from "../store";
+import {
+  toggleLikeBook,
+  addBookmark,
+  deleteBookmark,
+  updateBookStatus,
+  updateBookRating,
+  updateBookNote,
+  removeBook,
+} from "../books/booksSlice";
 
 import BookDetailSidebar from "../books/detail/BookDetailSidebar";
 import BookDetailHeader from "../books/detail/BookDetailHeader";
@@ -14,21 +22,16 @@ import BookBookmarks from "../books/detail/BookBookmarks";
 function BookDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  // Find book from dummy data or default to "b2" (Persepolis)
-  const book = dummyBooks.find((b) => b.id === id) || dummyBooks[1];
-
-  // Component state
-  const [status, setStatus] = useState<Status>(book.status);
-  const [isLiked, setIsLiked] = useState<boolean>(book.liked);
-  const [rating, setRating] = useState<number>(book.rating || 0);
-  const [notes, setNotes] = useState<string>(book.note || "");
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>(book.bookmarks || []);
+  // Find book from Redux store
+  const books = useAppSelector((state) => state.books.books);
+  const book = books.find((b) => b.id === id);
 
   if (!book) {
     return (
       <div className="py-12 text-center">
-        <h2 className="text-2xl font-bold text-stone-900">Book not found</h2>
+        <h2 className="text-2xl font-bold text-ink">Book not found</h2>
         <Link
           to="/"
           className="mt-4 inline-flex items-center gap-2 text-brand-700 hover:underline"
@@ -39,6 +42,22 @@ function BookDetail() {
     );
   }
 
+  const handleToggleLike = () => {
+    dispatch(toggleLikeBook(book.id));
+  };
+
+  const handleStatusChange = (newStatus: Status) => {
+    dispatch(updateBookStatus({ id: book.id, status: newStatus }));
+  };
+
+  const handleRatingChange = (newRating: number) => {
+    dispatch(updateBookRating({ id: book.id, rating: newRating }));
+  };
+
+  const handleNoteChange = (newNote: string) => {
+    dispatch(updateBookNote({ id: book.id, note: newNote }));
+  };
+
   const handleAddBookmark = (page: number, note?: string) => {
     if (page <= 0) return;
     const newBookmark: Bookmark = {
@@ -46,15 +65,16 @@ function BookDetail() {
       page,
       note,
     };
-    setBookmarks((prev) => [...prev, newBookmark]);
+    dispatch(addBookmark({ bookId: book.id, bookmark: newBookmark }));
   };
 
   const handleDeleteBookmark = (bmId: string) => {
-    setBookmarks((prev) => prev.filter((b) => b.id !== bmId));
+    dispatch(deleteBookmark({ bookId: book.id, bookmarkId: bmId }));
   };
 
   const handleRemoveBook = () => {
     if (window.confirm(`Remove "${book.title}" from your library?`)) {
+      dispatch(removeBook(book.id));
       navigate("/");
     }
   };
@@ -65,7 +85,7 @@ function BookDetail() {
       <div className="mb-6">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-ink transition-colors"
         >
           <IoArrowBack className="text-base" />
           <span>Back to library</span>
@@ -76,8 +96,8 @@ function BookDetail() {
         {/* Left Column: Cover & Actions */}
         <BookDetailSidebar
           book={book}
-          status={status}
-          onStatusChange={setStatus}
+          status={book.status}
+          onStatusChange={handleStatusChange}
           onRemove={handleRemoveBook}
         />
 
@@ -86,23 +106,23 @@ function BookDetail() {
           <BookDetailHeader
             title={book.title}
             author={book.author}
-            status={status}
-            isLiked={isLiked}
-            onToggleLike={() => setIsLiked(!isLiked)}
+            status={book.status}
+            isLiked={book.liked}
+            onToggleLike={handleToggleLike}
           />
 
           <BookRatings
-            rating={rating}
-            onRate={setRating}
+            rating={book.rating || 0}
+            onRate={handleRatingChange}
           />
 
           <BookNotes
-            notes={notes}
-            onChange={setNotes}
+            notes={book.note || ""}
+            onChange={handleNoteChange}
           />
 
           <BookBookmarks
-            bookmarks={bookmarks}
+            bookmarks={book.bookmarks || []}
             onAddBookmark={handleAddBookmark}
             onDeleteBookmark={handleDeleteBookmark}
           />

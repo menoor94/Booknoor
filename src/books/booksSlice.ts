@@ -66,6 +66,9 @@ export const booksSlice = createSlice({
     ) => {
       const book = state.books.find((b) => b.id === action.payload.bookId);
       if (book) {
+        if (!book.bookmarks) {
+          book.bookmarks = [];
+        }
         book.bookmarks.push(action.payload.bookmark);
       }
     },
@@ -74,7 +77,7 @@ export const booksSlice = createSlice({
       action: PayloadAction<{ bookId: string; bookmarkId: string }>,
     ) => {
       const book = state.books.find((b) => b.id === action.payload.bookId);
-      if (book) {
+      if (book && book.bookmarks) {
         book.bookmarks = book.bookmarks.filter(
           (bm) => bm.id !== action.payload.bookmarkId,
         );

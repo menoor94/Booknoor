@@ -37,11 +37,11 @@ function BookDetailHeader({
         {statusLabels[status]}
       </span>
 
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-stone-900 mt-2 tracking-tight">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-ink mt-2 tracking-tight">
         {title}
       </h1>
 
-      <p className="text-stone-600 text-sm sm:text-base mt-1 font-medium">
+      <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base mt-1 font-medium">
         {author}
       </p>
 
