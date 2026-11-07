@@ -18,7 +18,6 @@
   }
 }
 
-/* Smooth Falling Entrance Animations (Y-Axis) */
 @keyframes translateYEntrance {
   from {
     opacity: 0;
@@ -41,17 +40,14 @@
   }
 }
 
-/* Card / Book animation */
 .animate-book-card {
   animation: translateYEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Login hero animations (strictly Y-axis) */
 .animate-login-hero {
   animation: translateYEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Login form section animation (strictly Y-axis) */
 .animate-login-form {
   animation: translateYEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
@@ -86,6 +82,8 @@
   }
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Brand: deep ink blue (buttons, links, headings) */
   --color-brand-50: #eef2fb;
@@ -117,14 +115,32 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --color-surface: #14161c;
     --color-card: #1c1f27;
     --color-ink: #ecedf1;
     --color-muted: #a3a8b5;
     --color-line: #2c303b;
+    --color-noor-50: #fff1d2;
   }
 }
+
+:root.dark,
+.dark {
+  --color-surface: #14161c;
+  --color-card: #1c1f27;
+  --color-ink: #ecedf1;
+  --color-muted: #a3a8b5;
+  --color-line: #2c303b;
+  --color-noor-50: #14161c;
+  color-scheme: dark;
+}
+
 body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
   overflow: hidden;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }

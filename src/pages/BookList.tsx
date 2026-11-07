@@ -46,32 +46,32 @@ function BookList() {
       {/* Main Content */}
       <div className="relative z-10">
         {/* Header Section */}
-        <div className="pb-6 border-b border-stone-200/70">
+        <div className="pb-6 border-b border-line">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               {/* Bigger Heading */}
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 font-serif">
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink font-serif">
                 Your library
               </h1>
 
               {/* Smaller Status / Stats Line */}
-              <div className="mt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-stone-500 font-medium">
+              <div className="mt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted font-medium">
                 <span className="flex items-center gap-1">
-                  <span className="font-semibold text-stone-800">
+                  <span className="font-semibold text-ink">
                     {totalBooks}
                   </span>{" "}
                   Books
                 </span>
-                <span className="text-stone-300">•</span>
+                <span className="text-line">•</span>
                 <span className="flex items-center gap-1">
-                  <span className="font-semibold text-stone-800">
+                  <span className="font-semibold text-ink">
                     {finishedCount}
                   </span>{" "}
                   Finished
                 </span>
-                <span className="text-stone-300">•</span>
+                <span className="text-line">•</span>
                 <span className="flex items-center gap-1">
-                  <span className="font-semibold text-stone-800">
+                  <span className="font-semibold text-ink">
                     {likedCount}
                   </span>{" "}
                   Liked
@@ -84,7 +84,7 @@ function BookList() {
               <div className="relative flex-1 sm:flex-initial">
                 <IoSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm" />
                 <input
-                  className="w-full sm:w-64 pl-9 pr-4 py-2 border border-stone-300 bg-white/90 backdrop-blur-xs rounded-full text-sm text-stone-900 placeholder:text-stone-400 focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs"
+                  className="w-full sm:w-64 pl-9 pr-4 py-2 border border-line bg-card/90 backdrop-blur-xs rounded-full text-sm text-ink placeholder:text-muted focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs"
                   placeholder="Search your library..."
                   value={inpValue}
                   onChange={(e) => setInpValue(e.target.value)}
@@ -92,7 +92,7 @@ function BookList() {
                 />
               </div>
 
-              <select className="py-2 px-4 border border-stone-300 bg-white/90 backdrop-blur-xs rounded-full cursor-pointer text-xs sm:text-sm font-medium text-stone-700 focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs">
+              <select className="py-2 px-4 border border-line bg-card/90 backdrop-blur-xs rounded-full cursor-pointer text-xs sm:text-sm font-medium text-ink focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs">
                 <option value="Recently added">Recently added</option>
               </select>
             </div>
@@ -109,7 +109,7 @@ function BookList() {
                   size="sm"
                   aria-pressed={active}
                   className={`sm:text-sm sm:px-5 ${
-                    !active ? "bg-white/80 border-stone-300/80 text-stone-600" : ""
+                    !active ? "bg-card/80 border-line text-muted" : ""
                   }`}
                   onClick={() =>
                     setSearchParams(tab.value ? { status: tab.value } : {})

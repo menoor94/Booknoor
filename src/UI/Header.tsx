@@ -5,10 +5,11 @@ import { IoLibrary, IoSearch, IoAdd, IoPersonOutline } from "react-icons/io5";
 import Logo from "./Logo";
 import Navlink from "./Navlink";
 import Button from "./Button";
+import ThemeToggle from "./ThemeToggle";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 md:px-10 h-16 md:h-18 flex justify-between items-center transition-all shadow-2xs">
+    <header className="sticky top-0 z-40 w-full bg-card/95 backdrop-blur-md border-b border-line px-4 sm:px-6 md:px-10 h-16 md:h-18 flex justify-between items-center transition-all shadow-2xs">
       {/* Brand Logo */}
       <Link
         to="/"
@@ -47,9 +48,11 @@ function Header() {
           </Button>
         </Link>
 
+        <ThemeToggle />
+
         <Link
           to="/login"
-          className="p-2 text-stone-600 hover:text-brand-700 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
+          className="p-2 text-stone-600 dark:text-stone-300 hover:text-brand-700 dark:hover:text-noor-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors cursor-pointer"
           aria-label="Account Login"
           title="Account / Log in"
         >

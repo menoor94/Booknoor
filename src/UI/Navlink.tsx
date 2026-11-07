@@ -44,8 +44,8 @@ function Navlink({
       className={({ isActive }) =>
         `relative flex items-center gap-1 sm:gap-1.5 py-1.5 px-2 sm:px-3 rounded-lg text-xs sm:text-sm md:text-base font-medium transition-colors ${
           isActive
-            ? "text-brand-700 font-semibold"
-            : "text-stone-600 hover:text-brand-700 hover:bg-stone-100/60"
+            ? "text-brand-700 dark:text-brand-100 font-semibold"
+            : "text-muted hover:text-ink hover:bg-card/60"
         }`
       }
     >

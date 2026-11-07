@@ -22,12 +22,12 @@ export type ButtonProps = {
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-brand-700 hover:bg-brand-800 text-white shadow-xs",
   secondary:
-    "bg-noor-100 hover:bg-noor-200 text-noor-800 border border-noor-200/60",
+    "bg-noor-100 dark:bg-noor-800/40 hover:bg-noor-200 dark:hover:bg-noor-800/60 text-noor-800 dark:text-noor-100 border border-noor-200/60 dark:border-noor-800/50",
   outline:
-    "bg-white hover:bg-stone-50 text-stone-700 border border-stone-300 hover:border-stone-400 shadow-2xs",
+    "bg-card hover:bg-stone-50 dark:hover:bg-stone-800/50 text-ink border border-line shadow-2xs",
   danger:
-    "bg-white hover:bg-rose-50/50 text-stone-700 hover:text-danger border border-stone-300 hover:border-danger/50 shadow-2xs",
-  ghost: "text-stone-600 hover:text-stone-900 hover:bg-stone-100/60",
+    "bg-card hover:bg-rose-50/50 dark:hover:bg-rose-950/20 text-ink hover:text-danger border border-line hover:border-danger/50 shadow-2xs",
+  ghost: "text-muted hover:text-ink hover:bg-card/60",
 };
 
 const sizes: Record<ButtonSize, string> = {

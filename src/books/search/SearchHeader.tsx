@@ -33,11 +33,11 @@ function SearchHeader({
   const searchInputId = useId();
 
   return (
-    <header className="pb-6 border-b border-stone-200/70">
-      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 font-serif">
+    <header className="pb-6 border-b border-line">
+      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-ink font-serif">
         Find a book
       </h1>
-      <p className="mt-2 text-sm sm:text-base text-stone-500 font-medium">
+      <p className="mt-2 text-sm sm:text-base text-muted font-medium">
         Search Open Library and add it to your list.
       </p>
 
@@ -59,7 +59,7 @@ function SearchHeader({
             value={inputVal}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder="Search by title or author..."
-            className="w-full pl-12 pr-11 py-3 bg-white/95 backdrop-blur-xs border border-stone-300 rounded-full  sm:text-base text-stone-900 placeholder:text-stone-400 focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs"
+            className="w-full pl-12 pr-11 py-3 bg-card/95 backdrop-blur-xs border border-line rounded-full sm:text-base text-ink placeholder:text-muted focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs"
           />
 
           {/* Clear button */}
@@ -67,7 +67,7 @@ function SearchHeader({
             <button
               type="button"
               onClick={onClear}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 hover:bg-stone-100 p-1.5 rounded-full transition-colors cursor-pointer"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-ink hover:bg-card/80 p-1.5 rounded-full transition-colors cursor-pointer"
               aria-label="Clear search input"
             >
               <IoClose className="text-lg " />
@@ -78,7 +78,7 @@ function SearchHeader({
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           className="sm:px-7 py-3 text-sm font-semibold rounded-full shadow-xs"
           isLoading={isLoading}
         >
@@ -87,7 +87,7 @@ function SearchHeader({
       </form>
 
       {/* Quick Suggestions Chips */}
-      <div className="mt-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-stone-500">
+      <div className="mt-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-muted">
         <span className="font-medium mr-1">Suggestions:</span>
         {SUGGESTIONS.map((suggestion) => {
           const isActive =
@@ -100,8 +100,8 @@ function SearchHeader({
               onClick={() => onSuggestionClick(suggestion)}
               className={`px-3 py-1 rounded-full border transition cursor-pointer ${
                 isActive
-                  ? "bg-brand-50 border-brand-300 text-brand-700 font-semibold"
-                  : "bg-white/70 border-stone-200/90 text-stone-600 hover:bg-stone-100 hover:border-stone-300"
+                  ? "bg-brand-50 dark:bg-brand-900/40 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-100 font-semibold"
+                  : "bg-card/70 border-line text-muted hover:text-ink hover:bg-card"
               }`}
             >
               {suggestion}

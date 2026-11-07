@@ -86,10 +86,16 @@ function BookBookmarks({
           <input
             id="bm-page"
             type="number"
+            min="1"
             placeholder="123"
             required
             value={newPage}
-            onChange={(e) => setNewPage(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === "" || Number(val) >= 1) {
+                setNewPage(val);
+              }
+            }}
             className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-700/20 focus:border-brand-700 shadow-2xs"
           />
         </div>

@@ -40,6 +40,7 @@ function BookDetail() {
   }
 
   const handleAddBookmark = (page: number, note?: string) => {
+    if (page <= 0) return;
     const newBookmark: Bookmark = {
       id: `bm-${Date.now()}`,
       page,

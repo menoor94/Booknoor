@@ -35,9 +35,11 @@ function SearchResults({
       {/* Results Summary Header */}
       {query && !isLoading && !isError && (
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm sm:text-base font-semibold text-stone-800">
+          <h2 className="text-sm sm:text-base font-semibold text-ink">
             {books.length} {books.length === 1 ? "result" : "results"} for{" "}
-            <span className="font-serif italic text-brand-900">“{query}”</span>
+            <span className="font-serif italic dark:text-brand-500 text-brand-900">
+              “{query}”
+            </span>
           </h2>
         </div>
       )}
@@ -89,7 +91,7 @@ function SearchResults({
           <div className="w-14 h-14 mx-auto rounded-full bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center text-2xl mb-4 shadow-2xs">
             <IoBookOutline />
           </div>
-          <h2 className="text-lg font-bold text-stone-900 font-serif">
+          <h2 className="text-lg font-bold text-ink font-serif">
             Discover your next read
           </h2>
           <p className="mt-1.5 text-xs sm:text-sm text-stone-500 leading-relaxed">
@@ -102,7 +104,7 @@ function SearchResults({
       {/* Empty state: Query returned 0 results */}
       {query && !isLoading && !isError && books.length === 0 && (
         <div className="my-16 text-center py-12 px-4 max-w-md mx-auto">
-          <p className="text-base font-semibold text-stone-800">
+          <p className="text-base font-semibold text-ink">
             No books found for “{query}”
           </p>
           <p className="mt-1.5 text-xs sm:text-sm text-stone-500">

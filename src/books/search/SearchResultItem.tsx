@@ -28,12 +28,12 @@ function SearchResultItem({
       style={{
         animationDelay: `${Math.min(index * 40, 320)}ms`,
       }}
-      className="animate-book-card group bg-white rounded-xl border border-stone-200/80 p-3.5 sm:p-4 shadow-2xs hover:shadow-md hover:border-stone-300 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4"
+      className="animate-book-card group bg-card rounded-xl border border-line p-3.5 sm:p-4 shadow-2xs hover:shadow-md hover:border-line transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4"
     >
       {/* Left: Book Cover + Info */}
       <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
         {/* Cover Image or Styled Placeholder */}
-        <div className="relative w-14 sm:w-16 h-20 sm:h-22 rounded-md overflow-hidden shrink-0 shadow-2xs border border-stone-200/60 bg-stone-100">
+        <div className="relative w-14 sm:w-16 h-20 sm:h-22 rounded-md overflow-hidden shrink-0 shadow-2xs border border-line bg-card">
           {book.cover ? (
             <img
               src={book.cover}
@@ -66,7 +66,7 @@ function SearchResultItem({
         {/* Title, Author & First Published */}
         <div className="min-w-0 flex-1">
           <h3
-            className="font-serif font-bold text-base sm:text-lg text-stone-900 leading-snug truncate"
+            className="font-serif font-bold text-base sm:text-lg text-ink leading-snug truncate"
             title={book.title}
           >
             {book.title}

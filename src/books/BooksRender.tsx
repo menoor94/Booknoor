@@ -35,7 +35,7 @@ function BooksRender({ book, index = 0 }: BooksRenderProps) {
       style={{
         animationDelay: `${Math.min(index * 45, 360)}ms`,
       }}
-      className="animate-book-card group relative w-full max-w-[320px] sm:max-w-[220px] mx-auto flex flex-col bg-white rounded-xl border border-stone-200/80 p-3.5 sm:p-3 shadow-xs hover:shadow-md hover:border-stone-300 transition-all duration-200"
+      className="animate-book-card group relative w-full max-w-[320px] sm:max-w-[220px] mx-auto flex flex-col bg-card rounded-xl border border-line p-3.5 sm:p-3 shadow-xs hover:shadow-md hover:border-line transition-all duration-200"
     >
       {/* Book Cover */}
       <Link
@@ -96,20 +96,20 @@ function BooksRender({ book, index = 0 }: BooksRenderProps) {
         <div>
           <Link
             to={`/book/${id}`}
-            className="block text-base sm:text-sm font-semibold text-stone-900 truncate hover:text-brand-700 transition"
+            className="block text-base sm:text-sm font-semibold text-ink truncate hover:text-brand-500 transition"
             title={title}
           >
             {title}
           </Link>
-          <p className="text-sm sm:text-xs text-stone-500 truncate mt-0.5">
+          <p className="text-sm sm:text-xs text-muted truncate mt-0.5">
             {author}
           </p>
         </div>
 
         {/* Status & Rating */}
-        <div className="flex items-center justify-between w-full mt-3 sm:mt-2.5 pt-2 border-t border-stone-100 text-xs">
+        <div className="flex items-center justify-between w-full mt-3 sm:mt-2.5 pt-2 border-t border-line text-xs">
           <span
-            className={`text-xs sm:text-[10px] font-medium px-2.5 sm:px-2 py-0.5 rounded-full border ${statusStyles[status] || "bg-stone-100 text-stone-600"}`}
+            className={`text-xs sm:text-[10px] font-medium px-2.5 sm:px-2 py-0.5 rounded-full border ${statusStyles[status] || "bg-card text-muted"}`}
           >
             {statusLabels[status] || status}
           </span>
@@ -117,13 +117,13 @@ function BooksRender({ book, index = 0 }: BooksRenderProps) {
           {rating ? (
             <Rating rating={rating} size="sm" readonly />
           ) : (
-            <span className="text-[11px] text-stone-400">Not rated yet</span>
+            <span className="text-[11px] text-muted">Not rated yet</span>
           )}
         </div>
 
         {/* Bookmarks */}
-        <div className="flex items-center gap-1.5 sm:gap-1 mt-2 text-xs sm:text-[11px] text-stone-500">
-          <CiBookmark className="text-sm text-stone-400" />
+        <div className="flex items-center gap-1.5 sm:gap-1 mt-2 text-xs sm:text-[11px] text-muted">
+          <CiBookmark className="text-sm text-muted" />
           <span>
             {bookmarks && bookmarks.length > 0
               ? `${bookmarks.length} Bookmark${bookmarks.length > 1 ? "s" : ""}`
