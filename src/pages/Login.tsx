@@ -1,27 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [keepSigned, setKeepSigned] = useState(false);
 
+  // Keep the login page strictly in light mode
+  useEffect(() => {
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem("booknoor-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const shouldRestoreDark =
+      savedTheme === "dark" || (!savedTheme && prefersDark);
+
+    root.classList.remove("dark");
+    root.classList.add("light");
+
+    return () => {
+      if (shouldRestoreDark) {
+        root.classList.add("dark");
+        root.classList.remove("light");
+      }
+    };
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login submission
+    // Handle login submission and return to library
+    navigate("/");
   };
 
   return (
-    <div className="fixed inset-0 w-full overflow-y-auto md:overflow-hidden flex flex-col md:flex-row bg-noor-50">
+    <div
+      className="fixed inset-0 w-full overflow-y-auto md:overflow-hidden flex flex-col md:flex-row bg-[#f8f2e5] text-stone-900"
+      style={{ colorScheme: "light" }}
+    >
       {/* Left Side: Hero Banner */}
       <section className="w-full md:w-1/2 md:h-full bg-gradient-to-b from-brand-500/90 via-brand-500 to-brand-50/50 border-b md:border-b-0 md:border-r border-stone-200/80 flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-16 relative shrink-0 animate-login-hero">
         {/* Brand Logo */}
         <div className="animate-hero-stagger-1">
-          <Logo className="w-24 sm:w-28 md:w-32" />
+          <Link to="/" aria-label="Booknoor home">
+            <Logo
+              variant="light"
+              className="w-24 sm:w-28 md:w-32 hover:opacity-90 transition"
+            />
+          </Link>
         </div>
 
         {/* Center Content */}
@@ -162,7 +192,8 @@ function Login() {
             {/* Submit Button */}
             <div className="pt-2">
               <Button
-                type="primary"
+                variant="primary"
+                type="submit"
                 className="w-full py-2.5 text-sm font-semibold tracking-wider shadow-sm transition hover:shadow-md"
               >
                 Log in
