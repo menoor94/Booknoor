@@ -39,7 +39,7 @@ function BookList() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute top-32 -right-16 h-96 w-96 rounded-full bg-brand-100/40 blur-3xl opacity-60"
+        className="pointer-events-none absolute top-30 right-20 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl opacity-60"
         aria-hidden="true"
       />
 
@@ -57,9 +57,7 @@ function BookList() {
               {/* Smaller Status / Stats Line */}
               <div className="mt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted font-medium">
                 <span className="flex items-center gap-1">
-                  <span className="font-semibold text-ink">
-                    {totalBooks}
-                  </span>{" "}
+                  <span className="font-semibold text-ink">{totalBooks}</span>{" "}
                   Books
                 </span>
                 <span className="text-line">•</span>
@@ -71,9 +69,7 @@ function BookList() {
                 </span>
                 <span className="text-line">•</span>
                 <span className="flex items-center gap-1">
-                  <span className="font-semibold text-ink">
-                    {likedCount}
-                  </span>{" "}
+                  <span className="font-semibold text-ink">{likedCount}</span>{" "}
                   Liked
                 </span>
               </div>
