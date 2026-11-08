@@ -20,6 +20,15 @@ export interface OpenLibrarySearchResponse {
   docs: OpenLibraryDoc[];
 }
 
+export interface SearchBooksResult {
+  books: Book[];
+  numFound: number;
+  start: number;
+  page: number;
+  totalPages: number;
+  limit: number;
+}
+
 /**
  * Transforms an Open Library document into the Book format used across Booknoor.
  */
@@ -45,11 +54,12 @@ export function formatOpenLibraryBook(doc: OpenLibraryDoc): Book {
 }
 
 /**
- * Fetches raw book search results from Open Library.
+ * Fetches raw book search results from Open Library with pagination support.
  */
 export async function fetchBooksRaw(
   query: string,
-  limit: number = 10,
+  limit: number = 20,
+  page: number = 1,
   signal?: AbortSignal,
 ): Promise<OpenLibrarySearchResponse> {
   const trimmed = query.trim();
@@ -57,9 +67,10 @@ export async function fetchBooksRaw(
     return { numFound: 0, start: 0, docs: [] };
   }
 
+  const validPage = Math.max(1, page);
   const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(
     trimmed,
-  )}&limit=${limit}`;
+  )}&limit=${limit}&page=${validPage}`;
 
   const response = await fetch(url, { signal });
 
@@ -74,15 +85,26 @@ export async function fetchBooksRaw(
 
 /**
  * Fetches books from Open Library matching the search query and returns them
- * formatted as Booknoor Book objects.
+ * formatted as Booknoor Book objects with pagination metadata.
  */
 export async function fetchBooks(
   query: string,
-  limit: number = 10,
+  limit: number = 20,
+  page: number = 1,
   signal?: AbortSignal,
-): Promise<Book[]> {
-  const data = await fetchBooksRaw(query, limit, signal);
-  return data.docs.map(formatOpenLibraryBook);
+): Promise<SearchBooksResult> {
+  const data = await fetchBooksRaw(query, limit, page, signal);
+  const books = data.docs.map(formatOpenLibraryBook);
+  const totalPages = Math.ceil(data.numFound / limit);
+
+  return {
+    books,
+    numFound: data.numFound,
+    start: data.start,
+    page: Math.max(1, page),
+    totalPages,
+    limit,
+  };
 }
 
 export default fetchBooks;

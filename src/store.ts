@@ -5,10 +5,12 @@ import {
   type TypedUseSelectorHook,
 } from "react-redux";
 import booksReducer from "./books/booksSlice";
+import authReducer from "./auth/authSlice";
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
+    auth: authReducer,
   },
 });
 

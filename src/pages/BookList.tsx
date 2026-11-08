@@ -1,9 +1,16 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router";
-import { IoSearch } from "react-icons/io5";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router";
+import {
+  IoSearch,
+  IoChevronDown,
+  IoLibraryOutline,
+  IoAdd,
+} from "react-icons/io5";
 
 import type { Status } from "../types";
-import { useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
+import { setBooks } from "../books/booksSlice";
+import { fetchBooksFromSupabase } from "../services/apiBooks";
 import BooksRender from "../books/BooksRender";
 import Button from "../UI/Button";
 
@@ -15,33 +22,61 @@ const tabs: { label: string; value: Status | null }[] = [
 ];
 
 function BookList() {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get("status");
   const [inpValue, setInpValue] = useState("");
+  const [sortBy, setSortBy] = useState<"recent" | "title" | "author">("recent");
 
   const books = useAppSelector((state) => state.books.books);
+  const user = useAppSelector((state) => state.auth.user);
+
+  // Sync books from Supabase if available when user is logged in
+  useEffect(() => {
+    if (user?.id) {
+      fetchBooksFromSupabase(user.id)
+        .then((remoteBooks) => {
+          if (remoteBooks && remoteBooks.length > 0) {
+            dispatch(setBooks(remoteBooks));
+          }
+        })
+        .catch(() => {});
+    }
+  }, [user?.id, dispatch]);
 
   const totalBooks = books.length;
   const finishedCount = books.filter((b) => b.status === "finished").length;
   const likedCount = books.filter((b) => b.liked).length;
 
-  const visible = books.filter((book) => {
-    const matchesStatus = status ? book.status === status : true;
-    const matchesSearch = inpValue.trim()
-      ? book.title.toLowerCase().includes(inpValue.toLowerCase()) ||
-        book.author.toLowerCase().includes(inpValue.toLowerCase())
-      : true;
-    return matchesStatus && matchesSearch;
-  });
+  const filtered = useMemo(() => {
+    return books.filter((book) => {
+      const matchesStatus = status ? book.status === status : true;
+      const matchesSearch = inpValue.trim()
+        ? book.title.toLowerCase().includes(inpValue.toLowerCase()) ||
+          book.author.toLowerCase().includes(inpValue.toLowerCase())
+        : true;
+      return matchesStatus && matchesSearch;
+    });
+  }, [books, status, inpValue]);
+
+  const visible = useMemo(() => {
+    if (sortBy === "title") {
+      return [...filtered].sort((a, b) =>
+        a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
+      );
+    }
+    if (sortBy === "author") {
+      return [...filtered].sort((a, b) =>
+        a.author.localeCompare(b.author, undefined, { sensitivity: "base" }),
+      );
+    }
+    return filtered;
+  }, [filtered, sortBy]);
 
   return (
     <div className="relative min-h-full ">
       <div
         className="pointer-events-none absolute -top-8 -left-16 h-80 w-80 rounded-full bg-noor-200/50 blur-3xl opacity-70"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute top-30 right-20 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl opacity-60"
         aria-hidden="true"
       />
 
@@ -90,9 +125,21 @@ function BookList() {
                 />
               </div>
 
-              <select className="py-2 px-4 border border-line bg-card/90 backdrop-blur-xs rounded-full cursor-pointer text-xs sm:text-sm font-medium text-ink focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs">
-                <option value="Recently added">Recently added</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={sortBy}
+                  onChange={(e) =>
+                    setSortBy(e.target.value as "recent" | "title" | "author")
+                  }
+                  className="appearance-none py-2 pl-4 pr-9 border border-line bg-card/90 backdrop-blur-xs rounded-full cursor-pointer text-xs sm:text-sm font-medium text-ink focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20 focus:outline-none transition shadow-2xs"
+                  aria-label="Sort library"
+                >
+                  <option value="recent">Recently added</option>
+                  <option value="title">Title (A-Z)</option>
+                  <option value="author">Author (A-Z)</option>
+                </select>
+                <IoChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none text-xs" />
+              </div>
             </div>
           </div>
 
@@ -120,8 +167,30 @@ function BookList() {
           </div>
         </div>
 
-        {/* Books Grid */}
-        {visible.length > 0 ? (
+        {/* Books Grid or Empty State */}
+        {totalBooks === 0 ? (
+          <div className="border border-dashed border-line rounded-3xl p-8 sm:p-16 flex flex-col items-center justify-center text-center mt-8 min-h-[380px] bg-card/40">
+            <div className="w-16 h-16 rounded-full bg-brand-50 dark:bg-brand-900/30 border border-brand-100 dark:border-brand-800 flex items-center justify-center mb-4 text-2xl text-brand-700 dark:text-brand-300">
+              <IoLibraryOutline />
+            </div>
+
+            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-ink tracking-tight">
+              Your library is empty
+            </h2>
+
+            <p className="text-muted text-xs sm:text-sm mt-2 max-w-md leading-relaxed">
+              You haven't added any books yet. Discover and search books to
+              start curating your private bookshelf.
+            </p>
+
+            <Link to="/search" className="mt-6 inline-block">
+              <Button variant="primary" size="md" className="gap-2 px-6">
+                <IoAdd className="text-lg" />
+                <span>Discover &amp; add books</span>
+              </Button>
+            </Link>
+          </div>
+        ) : visible.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 justify-center items-start">
             {visible.map((b, idx) => (
               <BooksRender key={b.id} book={b} index={idx} />
@@ -129,11 +198,11 @@ function BookList() {
           </div>
         ) : (
           <div className="mt-16 text-center py-12 px-4">
-            <p className="text-base font-medium text-stone-700">
-              No books found
+            <p className="text-base font-medium text-ink">
+              No matching books found
             </p>
-            <p className="text-xs sm:text-sm text-stone-500 mt-1">
-              Try adjusting your search or filter tab.
+            <p className="text-xs sm:text-sm text-muted mt-1">
+              Try adjusting your search query or switching status tabs.
             </p>
           </div>
         )}

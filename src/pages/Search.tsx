@@ -20,6 +20,11 @@ function Search() {
     handleSuggestionClick,
     handleClear,
     books,
+    numFound,
+    totalPages,
+    currentPage,
+    limit,
+    setPage,
     isLoading,
     isFetching,
     isError,
@@ -78,6 +83,11 @@ function Search() {
           statuses={statuses}
           onStatusChange={handleStatusChange}
           onAddBook={handleAddBook}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          numFound={numFound}
+          limit={limit}
+          onPageChange={setPage}
         />
       </div>
     </div>

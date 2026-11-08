@@ -1,42 +1,53 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import type { Book } from "../../types";
-import { fetchBooks } from "../../api/openLibrary";
+import { fetchBooks, type SearchBooksResult } from "../../api/openLibrary";
 
 /**
- * Low-level React Query hook for searching books from Open Library.
+ * Low-level React Query hook for searching books from Open Library with pagination.
  *
  * @param query - Search term (title, author, keyword)
- * @param limit - Maximum books to retrieve (default: 12)
+ * @param limit - Books per page (default: 20)
+ * @param page - Current page number (1-indexed, default: 1)
  */
-export function useSearchBooksQuery(query: string, limit: number = 12) {
+export function useSearchBooksQuery(
+  query: string,
+  limit: number = 20,
+  page: number = 1,
+) {
   const trimmed = query.trim();
+  const validPage = Math.max(1, page);
 
-  const queryResult = useQuery<Book[]>({
-    queryKey: ["openLibrarySearch", trimmed, limit],
-    queryFn: ({ signal }) => fetchBooks(trimmed, limit, signal),
+  const queryResult = useQuery<SearchBooksResult>({
+    queryKey: ["openLibrarySearch", trimmed, limit, validPage],
+    queryFn: ({ signal }) => fetchBooks(trimmed, limit, validPage, signal),
     enabled: Boolean(trimmed),
     staleTime: 1000 * 60 * 5, // 5 minutes cache
   });
 
   return {
     ...queryResult,
-    books: queryResult.data ?? [],
+    books: queryResult.data?.books ?? [],
+    numFound: queryResult.data?.numFound ?? 0,
+    totalPages: queryResult.data?.totalPages ?? 0,
+    currentPage: queryResult.data?.page ?? validPage,
+    limit: queryResult.data?.limit ?? limit,
   };
 }
 
 /**
- * Custom hook that manages the entire search workflow:
- * - URL search params synchronization (?q=...)
- * - Input state and external sync
- * - Debounced auto-search while typing
- * - Instant execution via executeSearch / form submit / suggestion click
- * - React Query data fetching, caching, loading, error, and refetch
+ * Custom hook managing the entire search workflow:
+ * - URL search params synchronization (?q=...&page=...)
+ * - Input state and debouncing
+ * - Pagination state and smooth navigation
+ * - Query execution and caching via TanStack React Query
  */
-export function useSearchBooks(limit: number = 12, debounceMs: number = 450) {
+export function useSearchBooks(limit: number = 20, debounceMs: number = 450) {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get("q") ?? "";
+
+  const rawPage = parseInt(searchParams.get("page") ?? "1", 10);
+  const currentPage = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage;
 
   const [inputVal, setInputVal] = useState(queryParam);
   const [prevQuery, setPrevQuery] = useState(queryParam);
@@ -48,14 +59,27 @@ export function useSearchBooks(limit: number = 12, debounceMs: number = 450) {
   }
 
   // Fetch books from Open Library using React Query
-  const queryResult = useSearchBooksQuery(queryParam, limit);
+  const queryResult = useSearchBooksQuery(queryParam, limit, currentPage);
+
+  const setPage = (newPage: number) => {
+    const next = Math.max(1, newPage);
+    const updated = new URLSearchParams(searchParams);
+    if (next <= 1) {
+      updated.delete("page");
+    } else {
+      updated.set("page", String(next));
+    }
+    setSearchParams(updated);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const executeSearch = (termToSearch: string) => {
     const trimmed = termToSearch.trim();
     if (trimmed) {
-      if (trimmed === queryParam) {
+      if (trimmed === queryParam && currentPage === 1) {
         queryResult.refetch();
       } else {
+        // Reset to page 1 on new search query
         setSearchParams({ q: trimmed });
       }
     } else {
@@ -63,7 +87,7 @@ export function useSearchBooks(limit: number = 12, debounceMs: number = 450) {
     }
   };
 
-  // Debounced auto-search while typing
+  // Debounced auto-search while typing (resets page on new text)
   useEffect(() => {
     const timer = setTimeout(() => {
       const trimmed = inputVal.trim();
@@ -95,14 +119,16 @@ export function useSearchBooks(limit: number = 12, debounceMs: number = 450) {
   };
 
   return {
+    ...queryResult,
     queryParam,
     inputVal,
     setInputVal,
+    currentPage,
+    setPage,
     executeSearch,
     handleSearchSubmit,
     handleSuggestionClick,
     handleClear,
-    ...queryResult,
   };
 }
 

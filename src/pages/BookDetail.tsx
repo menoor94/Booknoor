@@ -111,15 +111,9 @@ function BookDetail() {
             onToggleLike={handleToggleLike}
           />
 
-          <BookRatings
-            rating={book.rating || 0}
-            onRate={handleRatingChange}
-          />
+          <BookRatings rating={book.rating || 0} onRate={handleRatingChange} />
 
-          <BookNotes
-            notes={book.note || ""}
-            onChange={handleNoteChange}
-          />
+          <BookNotes notes={book.note || ""} onChange={handleNoteChange} />
 
           <BookBookmarks
             bookmarks={book.bookmarks || []}
